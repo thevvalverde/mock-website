@@ -2,11 +2,20 @@ import logo from "./logo.svg";
 import "./App.css";
 import { Fragment } from "react";
 import Header from "./components/Header";
+import { Outlet } from "react-router-dom";
+import { styled } from "@mui/system";
+
+const MyDiv = styled('div')({
+  padding: "10px 200px 100px"
+})
 
 function App() {
   return (
   <Fragment>
     <Header/>
+    <MyDiv>
+      <Outlet/>
+    </MyDiv>
   </Fragment>
   )
   

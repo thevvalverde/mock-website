@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { AppBar, Button, Toolbar, Typography } from "@mui/material"
-import { styled } from "@mui/system";
-import { Link, BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import About from "./About";
-import Contact from "./Contact";
-import More from "./More";
-import styles from "./Header.module.css"
+import { style, styled } from "@mui/system";
+import About from "../pages/about-us";
+import Contact from "../pages/contact";
+import More from "../pages/see-more";
 import Auth from "./Auth";
+import Logoff from "./Logoff"
+import Link from "next/link";
+// import "../styles/styles.css"
 
 const MyAppBar = styled(AppBar)({
     backgroundColor: "#79BCB8",
@@ -31,7 +32,6 @@ const MyButton = styled(Button)({
     marginLeft: "38px",
     marginTop: "10px"
 })
-
 const MyToolbar = styled(Toolbar)({
     display: "flex",
     justifyContent: "space-between"
@@ -41,51 +41,45 @@ const headerData = [
     {
         label: "About Us",
         href: "/about-us",
-        toRender: About
     },
     {
         label: "Contact",
         href: "/contact",
-        toRender: Contact
     },
     {
         label: "See More",
         href: "/see-more",
-        toRender: More
     }
 ]
 
-export default function Header() {
+let auth = false;
 
+
+
+
+export default function Header(props) {
     const getButtons = () => {
         return headerData.map(({label, href})=> {
             return (
-                <MyButton key={label} to={href} component={Link}>
+                <Link href={href} key={label} >
+                <MyButton>
                     {label}
                 </MyButton>
+                </Link>
             )
         })
     }
-
-    const getRoutes = () => {
-        return headerData.map(({href, toRender}) =>{
-            return (
-                <Route key={href} path={href} element={toRender()}/>
-            )
-        })
-    }
-
-
+    
     return (
             <MyAppBar>
                     <MyToolbar>
                         <MyTypography variant="h2" component="h1">
-                            <Link to="/" className={styles.logo}> eXample </Link>
+                            <Link href="/"><a className="logo">eXample</a></Link>
                         </MyTypography>
                         <div>
                             {getButtons()}
                         </div>
-                        <Auth/>
+                        {props.status ? <Auth/> : <Logoff update={props.update} logoutFunction={props.logoutFunction}/>}
                     </MyToolbar>
             </MyAppBar>
     )

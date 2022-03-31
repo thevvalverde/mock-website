@@ -3,7 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/api/lookup": "pages/api/lookup.js",
-  "/api/create": "pages/api/create.js",
-  "/": "pages/index.js",
   "/api/login": "pages/api/login.js"
 }
